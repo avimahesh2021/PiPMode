@@ -1,0 +1,10 @@
+R_DEF: Internal format may change without notice
+local
+drawable launch_background
+id previewSurface
+id root
+layout activity_mirror
+mipmap ic_launcher
+style AppTheme
+style LaunchTheme
+style NormalTheme
