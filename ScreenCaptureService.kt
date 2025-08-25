@@ -22,39 +22,20 @@ class ScreenCaptureService : Service() {
     companion object {
         var previewSurface: Surface? = null
         const val ACTION_START_SERVICE = "ACTION_START_SERVICE"
-        const val ACTION_ATTACH_PREVIEW = "ACTION_ATTACH_PREVIEW"
         private const val NOTIFICATION_ID = 100
         private const val CHANNEL_ID = "screen_capture"
         private const val TAG = "ScreenCaptureService"
-        
-        // Check if service is ready (has MediaProjection and VirtualDisplay)
-        fun isReady(): Boolean {
-            return previewSurface != null && 
-                   instance?.mediaProjection != null && 
-                   instance?.virtualDisplay != null
-        }
-        
-        private var instance: ScreenCaptureService? = null
-        
-        // Method to attach preview surface when it becomes available
-        fun attachPreviewSurface(surface: Surface) {
-            previewSurface = surface
-            instance?.createVirtualDisplay()
-        }
     }
 
     private var mediaProjection: MediaProjection? = null
     private var virtualDisplay: VirtualDisplay? = null
     private var projectionManager: MediaProjectionManager? = null
-    private var isMediaProjectionReady = false
-
     override fun onCreate() {
         super.onCreate()
-        instance = this
         Log.d(TAG, "Service created")
-        
+
         projectionManager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-        
+
         // Start as foreground service (required for MediaProjection on Android 14+)
         createNotificationChannel()
         val notification = buildNotification()
@@ -66,44 +47,30 @@ class ScreenCaptureService : Service() {
         val action = intent?.action
         Log.d(TAG, "Received action: $action")
 
-        when (action) {
-            ACTION_START_SERVICE -> {
+        if (action == ACTION_START_SERVICE && intent != null) {
+            val resultCode = intent.getIntExtra("EXTRA_RESULT_CODE", -1)
+            val data: Intent? = intent.getParcelableExtra("EXTRA_RESULT_INTENT")
+
+            if (data != null) {
                 Log.d(TAG, "Processing ACTION_START_SERVICE")
-                setupMediaProjection()
-            }
-            ACTION_ATTACH_PREVIEW -> {
-                Log.d(TAG, "Processing ACTION_ATTACH_PREVIEW")
-                createVirtualDisplay()
+                setupMediaProjection(resultCode, data)
+            } else {
+                Log.e(TAG, "Screen capture data not provided in intent")
             }
         }
         return START_STICKY
     }
 
-    private fun setupMediaProjection() {
+    private fun setupMediaProjection(resultCode: Int, data: Intent) {
         try {
-            val resultCode = MainActivity.pendingScreenCaptureResultCode
-            val data = MainActivity.pendingScreenCaptureData
-            
             Log.d(TAG, "Setting up MediaProjection - resultCode: $resultCode, data: ${data != null}")
-            
-            if (resultCode != -1 && data != null) {
-                mediaProjection = projectionManager?.getMediaProjection(resultCode, data)
-                isMediaProjectionReady = true
+
+            mediaProjection = projectionManager?.getMediaProjection(resultCode, data)
+            if (mediaProjection != null) {
                 Log.d(TAG, "MediaProjection created successfully")
-                
-                // Clear the stored data to prevent reuse
-                MainActivity.pendingScreenCaptureResultCode = -1
-                MainActivity.pendingScreenCaptureData = null
-                
-                // If surface is already available, create VirtualDisplay
-                if (previewSurface != null) {
-                    Log.d(TAG, "Surface already available, creating VirtualDisplay")
-                    createVirtualDisplay()
-                } else {
-                    Log.d(TAG, "Surface not available yet, waiting for attach")
-                }
+                createVirtualDisplay()
             } else {
-                Log.e(TAG, "Invalid screen capture data")
+                Log.e(TAG, "Failed to create MediaProjection")
             }
         } catch (e: Exception) {
             Log.e(TAG, "Failed to setup MediaProjection", e)
@@ -111,8 +78,8 @@ class ScreenCaptureService : Service() {
     }
 
     private fun createVirtualDisplay() {
-        if (!isMediaProjectionReady || previewSurface == null) {
-            Log.w(TAG, "Cannot create VirtualDisplay - MediaProjection: $isMediaProjectionReady, Surface: ${previewSurface != null}")
+        if (mediaProjection == null || previewSurface == null) {
+            Log.w(TAG, "Cannot create VirtualDisplay - MediaProjection: ${mediaProjection != null}, Surface: ${previewSurface != null}")
             return
         }
 
@@ -191,7 +158,6 @@ class ScreenCaptureService : Service() {
         try {
             virtualDisplay?.release()
             mediaProjection?.stop()
-            instance = null
             Log.d(TAG, "Service destroyed; resources released")
         } catch (e: Exception) {
             Log.e(TAG, "Cleanup error", e)

@@ -14,9 +14,6 @@ class MainActivity : FlutterActivity() {
     companion object {
         private const val CHANNEL = "pip_channel"
         private const val SCREEN_CAPTURE_REQUEST_CODE = 1001
-
-        var pendingScreenCaptureResultCode: Int = -1
-        var pendingScreenCaptureData: Intent? = null
     }
 
     private var mediaProjectionManager: MediaProjectionManager? = null
@@ -58,12 +55,11 @@ class MainActivity : FlutterActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == SCREEN_CAPTURE_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            // Save globally
-            pendingScreenCaptureResultCode = resultCode
-            pendingScreenCaptureData = data
-
             // Launch MirrorActivity which will go PiP
-            val intent = Intent(this, MirrorActivity::class.java)
+            val intent = Intent(this, MirrorActivity::class.java).apply {
+                putExtra("EXTRA_RESULT_CODE", resultCode)
+                putExtra("EXTRA_RESULT_INTENT", data)
+            }
             startActivity(intent)
 
             pendingResult?.success(true)
