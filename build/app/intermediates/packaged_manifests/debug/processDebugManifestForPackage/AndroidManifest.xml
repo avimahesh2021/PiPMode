@@ -37,7 +37,8 @@
         android:debuggable="true"
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="speckcue_pip" >
+        android:label="speckcue_pip"
+        android:testOnly="true" >
         <activity
             android:name="com.example.speckcue_pip.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

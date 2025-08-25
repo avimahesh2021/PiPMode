@@ -1,0 +1,3 @@
+/Users/developer_avi/Desktop/PiPMode/android/app/src/main/kotlin/com/example/speckcue_pip/MainActivity.kt
+/Users/developer_avi/Desktop/PiPMode/android/app/src/main/kotlin/com/example/speckcue_pip/ScreenCaptureService.kt
+/Users/developer_avi/Desktop/PiPMode/android/app/src/main/kotlin/com/example/speckcue_pip/MirrorActivity.kt
