@@ -81,8 +81,8 @@ class ScreenCaptureService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             ACTION_START_SERVICE -> {
-                val code = MainActivity.pendingScreenCaptureResultCode
-                val data = MainActivity.pendingScreenCaptureData
+                val code = intent.getIntExtra("EXTRA_RESULT_CODE", -1)
+                val data : Intent? = intent.getParcelableExtra("EXTRA_RESULT_INTENT")
                 val width = intent.getIntExtra("surface_width", 0)
                 val height = intent.getIntExtra("surface_height", 0)
 
@@ -106,7 +106,7 @@ class ScreenCaptureService : Service() {
                         stopSelf()
                     }
                 } else {
-                    Log.e(TAG, "Missing screen capture data from MainActivity")
+                    Log.e(TAG, "Missing screen capture data from Intent")
                     stopSelf()
                 }
             }
