@@ -22,10 +22,10 @@ com.example.speckcue_pip.app-jetified-window-1.2.0-20 /Users/developer_avi/.grad
 com.example.speckcue_pip.app-jetified-core-ktx-1.13.1-21 /Users/developer_avi/.gradle/caches/8.11.1/transforms/e41fe08d4e4337768bd0e592197e520a/transformed/jetified-core-ktx-1.13.1/res
 com.example.speckcue_pip.app-lifecycle-livedata-2.7.0-22 /Users/developer_avi/.gradle/caches/8.11.1/transforms/edc8877fd689c30bc61dc8fa24d39fd5/transformed/lifecycle-livedata-2.7.0/res
 com.example.speckcue_pip.app-lifecycle-livedata-core-2.7.0-23 /Users/developer_avi/.gradle/caches/8.11.1/transforms/ee486525f445dcf84410be2c026c6088/transformed/lifecycle-livedata-core-2.7.0/res
-com.example.speckcue_pip.app-debug-24 /Users/developer_avi/Downloads/Project/speckcue_pip/android/app/src/debug/res
-com.example.speckcue_pip.app-main-25 /Users/developer_avi/Downloads/Project/speckcue_pip/android/app/src/main/res
-com.example.speckcue_pip.app-pngs-26 /Users/developer_avi/Downloads/Project/speckcue_pip/build/app/generated/res/pngs/debug
-com.example.speckcue_pip.app-resValues-27 /Users/developer_avi/Downloads/Project/speckcue_pip/build/app/generated/res/resValues/debug
-com.example.speckcue_pip.app-packageDebugResources-28 /Users/developer_avi/Downloads/Project/speckcue_pip/build/app/intermediates/incremental/debug/packageDebugResources/merged.dir
-com.example.speckcue_pip.app-packageDebugResources-29 /Users/developer_avi/Downloads/Project/speckcue_pip/build/app/intermediates/incremental/debug/packageDebugResources/stripped.dir
-com.example.speckcue_pip.app-debug-30 /Users/developer_avi/Downloads/Project/speckcue_pip/build/app/intermediates/merged_res/debug/mergeDebugResources
+com.example.speckcue_pip.app-debug-24 /Users/developer_avi/Desktop/PiPMode/android/app/src/debug/res
+com.example.speckcue_pip.app-main-25 /Users/developer_avi/Desktop/PiPMode/android/app/src/main/res
+com.example.speckcue_pip.app-pngs-26 /Users/developer_avi/Desktop/PiPMode/build/app/generated/res/pngs/debug
+com.example.speckcue_pip.app-resValues-27 /Users/developer_avi/Desktop/PiPMode/build/app/generated/res/resValues/debug
+com.example.speckcue_pip.app-packageDebugResources-28 /Users/developer_avi/Desktop/PiPMode/build/app/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.example.speckcue_pip.app-packageDebugResources-29 /Users/developer_avi/Desktop/PiPMode/build/app/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.example.speckcue_pip.app-debug-30 /Users/developer_avi/Desktop/PiPMode/build/app/intermediates/merged_res/debug/mergeDebugResources

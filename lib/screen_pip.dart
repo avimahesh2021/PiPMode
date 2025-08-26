@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 class ScreenPip {
   static const _ch = MethodChannel('pip_channel');
 
+
+
   /// Check if PiP is supported
   static Future<bool> isPiPSupported() async {
     try {
