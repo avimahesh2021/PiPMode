@@ -28,7 +28,10 @@
     "variantName": "profile",
     "isDebuggableEnabled": true,
     "validAbiList": [
-      "arm64-v8a"
+      "armeabi-v7a",
+      "arm64-v8a",
+      "x86",
+      "x86_64"
     ],
     "buildTargetSet": [],
     "implicitBuildTargetSet": [],
@@ -141,7 +144,6 @@
         "rootBuildGradleFolder": "/Users/developer_avi/Desktop/PiPMode/android",
         "sdkFolder": "/Users/developer_avi/Library/Android/sdk",
         "isBuildOnlyTargetAbiEnabled": true,
-        "ideBuildTargetAbi": "arm64-v8a",
         "isCmakeBuildCohabitationEnabled": false,
         "isPrefabEnabled": false
       },

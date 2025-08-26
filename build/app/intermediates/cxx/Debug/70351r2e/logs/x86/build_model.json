@@ -10,7 +10,7 @@
   },
   "cxxBuildFolder": "/Users/developer_avi/Desktop/PiPMode/android/app/.cxx/Debug/70351r2e/x86",
   "soFolder": "/Users/developer_avi/Desktop/PiPMode/build/app/intermediates/cxx/Debug/70351r2e/obj/x86",
-  "soRepublishFolder": "/Users/developer_avi/Desktop/PiPMode/build/app/intermediates/cmake/debug/obj/x86",
+  "soRepublishFolder": "/Users/developer_avi/Desktop/PiPMode/build/app/intermediates/cmake/profile/obj/x86",
   "abiPlatformVersion": 21,
   "cmake": {
     "effectiveConfiguration": {
@@ -25,7 +25,7 @@
     ],
     "cFlagsList": [],
     "cppFlagsList": [],
-    "variantName": "debug",
+    "variantName": "profile",
     "isDebuggableEnabled": true,
     "validAbiList": [
       "armeabi-v7a",
