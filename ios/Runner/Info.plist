@@ -45,5 +45,39 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	
+	<!-- iOS PiP and Screen Recording Permissions -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs microphone access to record audio during screen capture for PiP functionality.</string>
+	
+	<!-- Background modes for PiP -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>background-processing</string>
+	</array>
+	
+	<!-- Picture-in-Picture capability -->
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>multitasking</string>
+	</array>
+	
+	<!-- ReplayKit screen recording -->
+	<key>NSScreenCaptureUsageDescription</key>
+	<string>This app captures your screen to create Picture-in-Picture content that you can view while using other apps.</string>
+	
+	<!-- Allow arbitrary loads for local video streaming -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	
+	<!-- iOS 14+ PiP support -->
+	<key>AVPictureInPictureEnabled</key>
+	<true/>
 </dict>
 </plist>

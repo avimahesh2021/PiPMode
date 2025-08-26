@@ -26,16 +26,16 @@ class ScreenCaptureService : Service() {
         private const val NOTIFICATION_ID = 100
         private const val CHANNEL_ID = "screen_capture"
         private const val TAG = "ScreenCaptureService"
-
+        
         // Check if service is ready (has MediaProjection and VirtualDisplay)
         fun isReady(): Boolean {
-            return previewSurface != null &&
-                   instance?.mediaProjection != null &&
+            return previewSurface != null && 
+                   instance?.mediaProjection != null && 
                    instance?.virtualDisplay != null
         }
-
+        
         private var instance: ScreenCaptureService? = null
-
+        
         // Method to attach preview surface when it becomes available
         fun attachPreviewSurface(surface: Surface) {
             previewSurface = surface
@@ -52,9 +52,9 @@ class ScreenCaptureService : Service() {
         super.onCreate()
         instance = this
         Log.d(TAG, "Service created")
-
+        
         projectionManager = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-
+        
         // Start as foreground service (required for MediaProjection on Android 14+)
         createNotificationChannel()
         val notification = buildNotification()
@@ -83,18 +83,18 @@ class ScreenCaptureService : Service() {
         try {
             val resultCode = MainActivity.pendingScreenCaptureResultCode
             val data = MainActivity.pendingScreenCaptureData
-
+            
             Log.d(TAG, "Setting up MediaProjection - resultCode: $resultCode, data: ${data != null}")
-
+            
             if (resultCode != -1 && data != null) {
                 mediaProjection = projectionManager?.getMediaProjection(resultCode, data)
                 isMediaProjectionReady = true
                 Log.d(TAG, "MediaProjection created successfully")
-
+                
                 // Clear the stored data to prevent reuse
                 MainActivity.pendingScreenCaptureResultCode = -1
                 MainActivity.pendingScreenCaptureData = null
-
+                
                 // If surface is already available, create VirtualDisplay
                 if (previewSurface != null) {
                     Log.d(TAG, "Surface already available, creating VirtualDisplay")

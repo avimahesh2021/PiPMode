@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="21"
-        android:targetSdkVersion="35" />
+        android:targetSdkVersion="34" />
     <!--
          The INTERNET permission is required for development. Specifically,
          the Flutter tool needs it to communicate with the running application
@@ -16,7 +16,13 @@
     <!-- Permissions must be here (outside <application>) -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Required on Android 14+ when using MediaProjection -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" /> <!-- Required for ProcessTextPlugin -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" /> <!-- Android 15 MediaProjection alternatives - trying both approaches -->
+    <uses-permission android:name="android.permission.CAPTURE_VIDEO_OUTPUT" /> <!-- Alternative approach using android:project_media in service meta-data below -->
+    <!-- Required on Android 14 for screen capture foreground services -->
+    <!-- Optional but recommended for showing the ongoing notification on 13+ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- Allow PiP to be accessible from anywhere on the device -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" /> <!-- Required for ProcessTextPlugin -->
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT" />
@@ -37,7 +43,8 @@
         android:debuggable="true"
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="speckcue_pip" >
+        android:label="speckcue_pip"
+        android:testOnly="true" >
         <activity
             android:name="com.example.speckcue_pip.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -70,8 +77,15 @@
 
         <service
             android:name="com.example.speckcue_pip.ScreenCaptureService"
+            android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="mediaProjection" />
+            android:foregroundServiceType="mediaProjection" >
+
+            <!-- Android 15 requirement: project_media attribute -->
+            <meta-data
+                android:name="android:project_media"
+                android:value="true" />
+        </service>
 
         <!-- Don't delete the meta-data below -->
         <meta-data

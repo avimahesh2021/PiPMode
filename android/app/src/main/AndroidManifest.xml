@@ -6,6 +6,18 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <!-- Required on Android 14+ when using MediaProjection -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    
+    <!-- Android 15 MediaProjection alternatives - trying both approaches -->
+    <uses-permission android:name="android.permission.CAPTURE_VIDEO_OUTPUT" />
+    <!-- Alternative approach using android:project_media in service meta-data below -->
+
+    <!-- Required on Android 14 for screen capture foreground services -->
+    <!-- Optional but recommended for showing the ongoing notification on 13+ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    
+    <!-- Allow PiP to be accessible from anywhere on the device -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
 
     <application
@@ -46,8 +58,14 @@
 
         <service
             android:name=".ScreenCaptureService"
+            android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="mediaProjection" />
+            android:foregroundServiceType="mediaProjection">
+            <!-- Android 15 requirement: project_media attribute -->
+            <meta-data 
+                android:name="android:project_media" 
+                android:value="true" />
+        </service>
 
         <!-- Don't delete the meta-data below -->
         <meta-data
